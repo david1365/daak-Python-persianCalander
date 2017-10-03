@@ -139,7 +139,7 @@ monthCountEachYear = monthCountEachYearMid * 2
 weekDaysCount = 7
 
 #--------
-def What2820(ParsiYear):
+def what2820(ParsiYear):
     '''
       بدست آوردن اینکه سال مورد نظر در کدام دوره بزرگ است
      "ParsiYear"=>سال خورشیدی
@@ -147,14 +147,14 @@ def What2820(ParsiYear):
      توضیح=>اگر سال ورودی از 1 کمتر باشد خطا صادر می شود
     '''
     if (ParsiYear <= 0):
-        raise ".سال مورد قبول از یک شروع می شود"
+        raise DAexception(".سال مورد قبول از یک شروع می شود")
 
     ParsiYear += yearsCountblink   
     return ceil(ParsiYear / float(yearsCountBigAGE))#ما سقف عدد بدست آمده را می خواهیم زیرا رقم سمت راست به این معنی است که وارد دوره شده است
 
 
 #---------    
-def What2820AtDay(LastDays):
+def what2820AtDay(LastDays):
     '''
      بدست آوردن اینکه تعداد روز ورودی در  کدام دوره بزرگ است
      "LastDays"=>تعداد روز گذشته شده از ابتدای تاریخ خورشیدی
@@ -164,29 +164,29 @@ def What2820AtDay(LastDays):
 
 
 #----------
-def EraBigAGE(ParsiYear):
+def eraBigAGE(ParsiYear):
     '''
      بدست آوردن مبدا دروه ی بزرگ سالی که از ورودی گرفته می شود
      "ParsiYear"=>سال خورشیدی
      مبدا دوره بزرگ سال مورد نظر
      توضیح=>اگر سال ورودی از 1 کمتر باشد خطا صادر می شود
     '''
-    return ((What2820(ParsiYear) - 1) * yearsCountBigAGE) - yearsCountblink
+    return ((what2820(ParsiYear) - 1) * yearsCountBigAGE) - yearsCountblink
 #-----------
 
 
-def LateFromEraBigAGE(ParsiYear):
+def lateFromEraBigAGE(ParsiYear):
     '''
      سال طی شده از مبدا دوره مورد نظر بزرگ
      "ParsiYear"=>سال خورشیدی
      سال طی شده از مبدا دوره مورد نظر بزرگ
      توضیح=>اگر سال ورودی از 1 کمتر باشد خطا صادر می شود
     '''
-    return ParsiYear - EraBigAGE(ParsiYear)
+    return ParsiYear - eraBigAGE(ParsiYear)
 #-----------
 
 
-def What128Or132(ParsiYear):
+def what128Or132(ParsiYear):
     '''
      سال مورد نظر در کدام دوره ی 128 یا 132 است
      "ParsiYear"=>سال خورشیدی
@@ -194,23 +194,23 @@ def What128Or132(ParsiYear):
      توضیح=>اگر سال ورودی از 1 کمتر باشد خطا صادر می شود
     '''
     #چون دور بزرگ به 21 دوره 128 و یک دوره 132 تقسیم شده
-    return ceil(LateFromEraBigAGE(ParsiYear) / float(yearsCount128))
+    return ceil(lateFromEraBigAGE(ParsiYear) / float(yearsCount128))
 #------------------   
    
    
-def What128Or132AtDay(LastDays):
+def what128Or132AtDay(LastDays):
     '''
      سال مورد نظر در کدام دوره ی128 یا 132 قرار دارد 
      "LastDays"=>ورودی برحسب تعداد روز گذشته شده از ابتدای تاریخ خورشیدی
      سال مورد نظر در کدام دوره ی 128 یا 132  قرار دارد  
     '''
-    RestDays = (LastDays + daysCountBlinkYear) - ((What2820AtDay(LastDays) - 1) * daysCountBigAGE)
+    RestDays = (LastDays + daysCountBlinkYear) - ((what2820AtDay(LastDays) - 1) * daysCountBigAGE)
     RestDays /= float(daysCount128)
     return ceil(RestDays)   
 #--------------
 
      
-def Era128Or132(ParsiYear):
+def era128Or132(ParsiYear):
     '''
      بدست آوردن مبدا دوره 128 یا 132 ای که سال مورد نظر در آن قرار دارد
      "ParsiYear"=>سال خورشیدی
@@ -218,7 +218,7 @@ def Era128Or132(ParsiYear):
      توضیح=>اگر سال ورودی از 1 کمتر باشد خطا صادر می شود
     
     '''
-    What = What128Or132(ParsiYear)
+    What = what128Or132(ParsiYear)
     LateYear = 0
 
     if (What > Count128Circuit):
@@ -227,13 +227,13 @@ def Era128Or132(ParsiYear):
         LateYear = ((What - 1) * yearsCount128)
     
     if (What > Count128Circuit):
-        return (((What2820(ParsiYear) * LateYear) + ((What2820(ParsiYear) - 1) * yearsCount132)) - yearsCountblink)
+        return (((what2820(ParsiYear) * LateYear) + ((what2820(ParsiYear) - 1) * yearsCount132)) - yearsCountblink)
     else :
-        return (EraBigAGE(ParsiYear) + LateYear)
+        return (eraBigAGE(ParsiYear) + LateYear)
 #---------------    
     
     
-def LateFromEra128Or132(ParsiYear):
+def lateFromEra128Or132(ParsiYear):
     '''
      چند سال از مبدا دوره 128 یا 132 که سال مورد نظر در آن قرار دارد گذشته است
      "ParsiYear"=>سال خورشیدی
@@ -241,11 +241,11 @@ def LateFromEra128Or132(ParsiYear):
      توضیح=>اگر سال ورودی از 1 کمتر باشد خطا صادر می شود
     
     '''
-    return (ParsiYear - Era128Or132(ParsiYear))
+    return (ParsiYear - era128Or132(ParsiYear))
 #--------------------
 
 
-def WhatAge33(LastParsiYear):
+def whatAge33(LastParsiYear):
     '''
      چندمین دوره 33 ساله
      "LastParsiYear"=>تعداد سال گدشته شده از مبدا دوره 128 یا 132 ساله    
@@ -254,7 +254,7 @@ def WhatAge33(LastParsiYear):
 #----------------
 
 
-def WhatAge33FromRestDays(RestDays):
+def whatAge33FromRestDays(RestDays):
      '''
       "RestDays"=>تعداد روز گدشته شده از مبدا دوره 128 یا 132 ساله
      '''
@@ -262,16 +262,16 @@ def WhatAge33FromRestDays(RestDays):
 #------------------------------ 
  
 
-def LastAge33(LastParsiYear):
+def lastAge33(LastParsiYear):
     '''
      چند سال از ابتدای دوره 33 ساله می گذرد
      "LastParsiYear"=>تعداد سال گدشته شده از مبدا دوره 128 یا 132 ساله
     '''
-    return (yearsCount29 + ((WhatAge33(LastParsiYear) - 1) * yearsCount33))
+    return (yearsCount29 + ((whatAge33(LastParsiYear) - 1) * yearsCount33))
 #-----------------------
 
 
-def WhatYearOFSubAge(ParsiYear):
+def whatYearOFSubAge(ParsiYear):
     '''
      سال چندم در هر زیر دوره 29 یا 33 یا 37 است
      "ParsiYear"=>سال خورشیدی
@@ -279,11 +279,11 @@ def WhatYearOFSubAge(ParsiYear):
      سال چندم در هر زیر دوره 29 یا 33 یا 37 است 
      توضیح=>اگر سال ورودی از 1 کمتر باشد خطا صادر می شود
     '''   
-    What = What128Or132(ParsiYear),
-    Last = LateFromEra128Or132(ParsiYear)
+    What = what128Or132(ParsiYear),
+    Last = lateFromEra128Or132(ParsiYear)
     if (What > Count128Circuit):
         if ((Last <= yearsCountBefore37) and (Last > yearsCount29)):
-            return (Last - LastAge33(Last))
+            return (Last - lastAge33(Last))
         else :
             if (Last > yearsCountBefore37):
                 return (Last - yearsCountBefore37)
@@ -291,23 +291,23 @@ def WhatYearOFSubAge(ParsiYear):
                 return Last
     else :
         if (Last > yearsCount29):
-            return Last - LastAge33(Last)
+            return Last - lastAge33(Last)
         else :
             return Last
  #-----------------------  
 
-def WhatSubAge29Or33Or37(ParsiYear):
+def whatSubAge29Or33Or37(ParsiYear):
     '''
      در کدام زیر دوره 29 یا 33 یا 37 است
      "ParsiYear"=>سال خورشیدی
      توضیح=>اگر سال ورودی از 1 کمتر باشد خطا صادر می شود   
     '''        
-    What = What128Or132(ParsiYear),
-    Last = LateFromEra128Or132(ParsiYear)
+    What = what128Or132(ParsiYear),
+    Last = lateFromEra128Or132(ParsiYear)
     
     if (What > Count128Circuit):
         if ((Last <= yearsCountBefore37) and (Last > yearsCount29)):
-            return WhatAge33(Last)
+            return whatAge33(Last)
         else :
             if (Last > yearsCountBefore37):
                 return yearsCount37  
@@ -315,20 +315,20 @@ def WhatSubAge29Or33Or37(ParsiYear):
                 return yearsCount29    
     else :
         if (Last > yearsCount29):
-            return WhatAge33(Last) 
+            return whatAge33(Last)
         else :
             return yearsCount29             
 #-------------------------  
 
 
-def WhatSubAge29Or33Or37AtDay(LastDays):
+def whatSubAge29Or33Or37AtDay(LastDays):
     '''
      در کدام زیر دوره 29 یا 33 یا 37 است
      "LastDays"=>روز گذشته شده از ابتدای دوره 128 یا 132   
     '''
         
-    What128Or132 = What128Or132AtDay(LastDays)
-    RestDays = (LastDays + daysCountBlinkYear) - ((What2820AtDay(LastDays) - 1) * daysCountBigAGE)
+    What128Or132 = what128Or132AtDay(LastDays)
+    RestDays = (LastDays + daysCountBlinkYear) - ((what2820AtDay(LastDays) - 1) * daysCountBigAGE)
     if (What128Or132 > Count128Circuit):
         RestDays -= (Count128Circuit * daysCount128)
     else :
@@ -337,7 +337,7 @@ def WhatSubAge29Or33Or37AtDay(LastDays):
   
     if (What128Or132 > Count128Circuit):
         if ((RestDays > daysCount29) and (RestDays <= (daysCount29 + (2 * daysCount33)))):
-            return WhatAge33FromRestDays(RestDays)
+            return whatAge33FromRestDays(RestDays)
         else :
             if (RestDays > (daysCount29 + (2 * daysCount33))):
                 return yearsCount37
@@ -345,25 +345,25 @@ def WhatSubAge29Or33Or37AtDay(LastDays):
                 return yearsCount29
     else :
           if (RestDays > daysCount29):
-              return WhatAge33FromRestDays(RestDays)
+              return whatAge33FromRestDays(RestDays)
           else :
               return yearsCount29
 #------------------------------------   
  
  
-def AnomalyYear(ParsiYear):
+def anomalyYear(ParsiYear):
     '''
        شناسایی اینکه سال کبیسه است یا نه
        "ParsiYear"=>سال خورشیدی
        اینکه سال کبیسه است یا نه 
        توضیح=>اگر سال ورودی از 1 کمتر باشد خطا صادر می شود
     '''
-    Year = WhatYearOFSubAge(ParsiYear)
+    Year = whatYearOFSubAge(ParsiYear)
     return ((Year % yearsCount4 == 1) and  (Year != 1))
 #---------------
 
 
-def ParsiMonthDaysCount(ParsiYear, Month):
+def parsiMonthDaysCount(ParsiYear, Month):
     '''
      تعداد روز های برج های ایرانی
      "ParsiYear"=>سال خورشیدی
@@ -373,7 +373,7 @@ def ParsiMonthDaysCount(ParsiYear, Month):
     '''
         
     if ((Month > 12) or (Month < 1)):
-        raise ".شماره برح های فارسی از 1 شروع شده و به 12 ختم می شود"
+        raise DAexception( ".شماره برح های فارسی از 1 شروع شده و به 12 ختم می شود")
      
     if ((Month >= 1) and (Month <= 6)):
         return 31
@@ -381,14 +381,14 @@ def ParsiMonthDaysCount(ParsiYear, Month):
         if (((Month >= 7) and (Month <= 11))):
             return 30 
         else :
-            if ((Month == 12) and (AnomalyYear(ParsiYear))):
+            if ((Month == 12) and (anomalyYear(ParsiYear))):
                 return 30
             else :
                 return 29
 #---------------------------
 
 
-def MultipleAnomalyYear(ParsiYear):
+def multipleAnomalyYear(ParsiYear):
     '''
      تعداد سال کبسه تا قبل از سال مورد نظر
      "ParsiYear"=>سال خورشیدی
@@ -397,8 +397,8 @@ def MultipleAnomalyYear(ParsiYear):
      توضیح=>اگر سال ورودی از 1 کمتر باشد خطا صادر می شود
     '''
     #دوره 128 ساله ,31 سال و در دوره ی 132 ساله, 32 سال کبيسه وجود دارد و در هر دوره بزرگ 21 دوره 128 ساله و 1 دوره 132 ساله داريم.
-    Befor2820Now = (What2820(ParsiYear) - 1) * anomalyYearsCountBigAGE #تعداد سال های کبيسه دوره های 2820 بزرگ قبل از دوره بزرگ سال مورد نظر
-    What = What128Or132(ParsiYear)
+    Befor2820Now = (what2820(ParsiYear) - 1) * anomalyYearsCountBigAGE #تعداد سال های کبيسه دوره های 2820 بزرگ قبل از دوره بزرگ سال مورد نظر
+    What = what128Or132(ParsiYear)
  
     if (What > Count128Circuit):
         Befor128Or132Now = anomalyYearsCount128AGES
@@ -411,12 +411,12 @@ def MultipleAnomalyYear(ParsiYear):
     #تعداد سال کبیسه طی شده تا قبل از سال مورد نظر در داخل دوره 128 یا 132
     #تعداد سال دقیق طی شده
     
-    if AnomalyYear(ParsiYear):#سال طی شده از ابتدای دوره 128 یا 132 تا سال مورد نظر
-        LastFrom128Or132 = (LateFromEra128Or132(ParsiYear) - 1)
+    if anomalyYear(ParsiYear):#سال طی شده از ابتدای دوره 128 یا 132 تا سال مورد نظر
+        LastFrom128Or132 = (lateFromEra128Or132(ParsiYear) - 1)
     else :
-       LastFrom128Or132 = LateFromEra128Or132(ParsiYear)
+       LastFrom128Or132 = lateFromEra128Or132(ParsiYear)
            
-    SubAge = WhatSubAge29Or33Or37(ParsiYear)
+    SubAge = whatSubAge29Or33Or37(ParsiYear)
      
     if (SubAge == yearsCount29):
         LastFrom128Or132 -= 1
@@ -432,7 +432,7 @@ def MultipleAnomalyYear(ParsiYear):
 #--------------------------
 
 
-def DayToDate(ParsiYear, RestDay):
+def dayToDate(ParsiYear, RestDay):
     '''
      تبدیل روز به تاریخ خورشیدی با گرفتن سال و تعداد روز باقی مانده
      "ParsiYear"=>سال فارسی
@@ -446,7 +446,7 @@ def DayToDate(ParsiYear, RestDay):
 
     RestDay += 1
 
-    IsAYearEndDay = ((RestDay / daysCountAnomalyYear) == 1) and (not AnomalyYear(ParsiYear))#فهمیدن اینکه روز آخر هست و سال کبیسه نیست
+    IsAYearEndDay = ((RestDay / daysCountAnomalyYear) == 1) and (not anomalyYear(ParsiYear))#فهمیدن اینکه روز آخر هست و سال کبیسه نیست
     #به منظور ننوشتن دستورات شرطی تو در تو 30 یا 31 را به این صورت می شناسیم
     MonthDaysCount = (daysCountYearSecMid + (2 - ceil(RestDay / daysCountFirstMid)))
     WhatIsAMid = int(RestDay / daysCountFirstMid)#صفر مشخص کننده نیمه اول و یک مشخص کننده نیمه دوم است
@@ -471,7 +471,7 @@ def DayToDate(ParsiYear, RestDay):
 #--------------------------
 
 
-def FirstDayYear(ParsiYear):
+def firstDayYear(ParsiYear):
     '''
      محاسبه روز اول سال مورد نظر
      "ParsiYear"=>سال خورشیدی
@@ -479,7 +479,7 @@ def FirstDayYear(ParsiYear):
      محاسبه روز اول سال مورد نظر 
      توضیح=>اگر سال ورودی از 1 کمتر باشد خطاParsiMonthDaysCount صادر می شود   
     '''        
-    Days = MultipleAnomalyYear(ParsiYear)
+    Days = multipleAnomalyYear(ParsiYear)
     Days %= weekDaysCount
     Days += (((ParsiYear - 1) % weekDaysCount) + 5)#روز اول سال یک  پنج شنبه بوده و به همین دلیل با 5 جمع می کنیم
     Days %= weekDaysCount
@@ -497,8 +497,8 @@ def FirstDayMonth(ParsiYear, MonthNumber):
      توضیح=>اگر شماره ماه از 1 کوچکتر و از 12 بزرگتر باشد خطا صادر می شود
     '''
     if ((MonthNumber > 12) or (MonthNumber < 1)):
-        raise ".شماره برح های فارسی از 1 شروع شده و به 12 ختم می شود"
-    First = FirstDayYear(ParsiYear)#روز اول سال مورد نظر
+        raise DAexception( ".شماره برح های فارسی از 1 شروع شده و به 12 ختم می شود")
+    First = firstDayYear(ParsiYear)#روز اول سال مورد نظر
     
     if (MonthNumber <= weekDaysCount):
         First += ((MonthNumber - 1) * 3)
@@ -557,11 +557,11 @@ def DaysToYear(LastDays, RestDays):
     
      تبدیل روز ها ی گذشته شده به سال پارسی 
     '''
-    What2820 = What2820AtDay(LastDays)#کدام 2820 بزرگ
+    What2820 = what2820AtDay(LastDays)#کدام 2820 بزرگ
     Years2820 = (What2820 - 1) * yearsCountBigAGE#سال های 2820
     RestDays = (LastDays + daysCountBlinkYear) - ((What2820 - 1) * daysCountBigAGE)
     
-    What128Or132 = What128Or132AtDay(LastDays)
+    What128Or132 = what128Or132AtDay(LastDays)
     
     if (What128Or132 > Count128Circuit):
         Years128Or132 = yearsCount128AGES
@@ -575,7 +575,7 @@ def DaysToYear(LastDays, RestDays):
 
     Year = Years2820 + Years128Or132
 
-    SubAge29Or33Or37 = WhatSubAge29Or33Or37AtDay(LastDays)
+    SubAge29Or33Or37 = whatSubAge29Or33Or37AtDay(LastDays)
 
     if ((SubAge29Or33Or37 >= 1) and (SubAge29Or33Or37 <= 3)):
         RestDays -= (daysCount29 + ((SubAge29Or33Or37 - 1) * daysCount33))
@@ -603,7 +603,7 @@ def DaysToYear(LastDays, RestDays):
 
 #------------------------------
 
-def ConvertToParsiDate(Date):
+def convertToParsiDate(Date):
     '''
      تبدیل تاریخ میلادی به خورشیدی
      "Date"=>تاریخ میلادی
@@ -612,14 +612,14 @@ def ConvertToParsiDate(Date):
      توضیح=>اگر تاریخ ورودی از تاریخ - 0622/03/22 - میلادی کمتر باشد خطا صادر می شود
     '''        
     if (Date < datetime(622, 3, 22)):
-        raise ".تاریخ 0622/03/22 میلادی برار با روز اول تاریخ خورشیدی است" + "\n .باید تاریخ ورودی برابر یا بزرگتر از این تاریخ باشد"
+        raise DAexception( ".تاریخ 0622/03/22 میلادی برار با روز اول تاریخ خورشیدی است" + "\n .باید تاریخ ورودی برابر یا بزرگتر از این تاریخ باشد")
 
     RestDays = 0
     LastDays = (Date - firstDay).days #تعداد روز گذشته شده از سال یک تا تاریخ ورودی #1/01/01=622/03/22
     FirstYearsAndLastDays = DaysToYear(LastDays, RestDays)#بدست  آوردن سال ابتدای سال تاریخ مورد نظر
     
     #parsiDate = DayToDate(FirstYears, RestDays)
-    parsiDate = DayToDate(FirstYearsAndLastDays[0], FirstYearsAndLastDays[1])
+    parsiDate = dayToDate(FirstYearsAndLastDays[0], FirstYearsAndLastDays[1])
 
     return DaParsiDateTime(parsiDate.Year, parsiDate.Month, parsiDate.Day, Date.hour, Date.minute, Date.second, Date.microsecond)
 #---------------------------------------
@@ -630,17 +630,17 @@ def parsiDate():
      تاریخ خورشیدی
     '''      
     
-    return ConvertToParsiDate(datetime.now())
+    return convertToParsiDate(datetime.now())
 
 
        
-def ConvertToGregorian(parsiDate):
+def convertToGregorian(parsiDate):
     '''
       تبدیل تاریخ خورشیدی به میلادی
       "parsiDate"=>تاریخ فارسی
       تبدیل تاریخ خورشیدی به میلادی    
     '''
-    MultiplesAnomaly = MultipleAnomalyYear(parsiDate.Year) - anomalyYearsCountBlink#تعداد سال کبیسه کل منهای تعداد سال کبیسه نادیده
+    MultiplesAnomaly = multipleAnomalyYear(parsiDate.Year) - anomalyYearsCountBlink#تعداد سال کبیسه کل منهای تعداد سال کبیسه نادیده
     Days = ((parsiDate.Year - 1) * daysCountNormalYear) + MultiplesAnomaly#تعداد کل روز های طی شده تا ابتدای سال مورد نظر
    
     if (parsiDate.Month > monthCountEachYearMid):
@@ -657,7 +657,7 @@ def ConvertToGregorian(parsiDate):
 
 
 
-def DAstrToParsiDate(str):
+def strToParsiDate(str):
     '''
     تبدیل رشته به تاریخ خورشیدی
     '''

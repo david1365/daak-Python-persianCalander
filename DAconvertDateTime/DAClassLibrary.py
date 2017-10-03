@@ -35,8 +35,8 @@ class DaParsiDateTime(object):
                 raise DAexception(".سال مورد قبول بین یک و 9223372036854775807 است")
         elif ((month > 12) or (month < 1)) :
                 raise DAexception(".برج های سال خورشیدی بین 1 و 12 است")
-        elif ((day < 1) or (day > DAConvertDate.ParsiMonthDaysCount(year, month))):
-                raise DAexception("روز برج" + " " + DAConvertDate.parsiMonthName[month] + " سال " + str(year) + " بین عدد 1 و  " + DAConvertDate.ParsiMonthDaysCount(year, month) + " است ")
+        elif ((day < 1) or (day > DAConvertDate.parsiMonthDaysCount(year, month))):
+                raise DAexception("روز برج" + " " + DAConvertDate.parsiMonthName[month] + " سال " + str(year) + " بین عدد 1 و  " + DAConvertDate.parsiMonthDaysCount(year, month) + " است ")
         elif ((hour < 0) or (hour > 23)):
                 raise DAexception("ساعت بین 0 و 23 است")        
         elif ((minute < 0) or (minute > 59)):
@@ -69,7 +69,7 @@ class DaParsiDateTime(object):
         return str(int(self.__year)) + '-' + self.__addZero(str(int(self.__month))) + '-' + self.__addZero(str(int(self.__day))) + ' ' + self.__addZero(str(int(self.__hour))) + ':' + self.__addZero(str(self.__minute)) + ':' + self.__addZero(str(self.__second)) + '.' + self.__addZero(str(self.__microsecond))
         
     #رشته ی تاریخ پارسی
-    def ParsiStrDateTime(self):
+    def parsiStrDateTime(self):
         return str(int(self.__year)) + '/' + self.__addZero(str(int(self.__month))) + '/' + self.__addZero(str(int(self.__day))) + ' ' + self.__addZero(str(int(self.__hour))) + ':' + self.__addZero(str(self.__minute)) + ':' + self.__addZero(str(self.__second)) + '.' + self.__addZero(str(self.__microsecond))
         
     
@@ -151,7 +151,7 @@ class DaParsiDateTime(object):
     Now = property(__getNow, None, None, 'تاریخ و زمان حالا')
         
     
-    def AddYears(self, Years):
+    def addYears(self, Years):
         '''
          اضافه کردن به سال
          "Years"=>تعداد سال
@@ -162,7 +162,7 @@ class DaParsiDateTime(object):
     '''
     این تابع مشکلی ندارد ولی تابع بهینه شده در کد های زبان پی اچ پی موجود است
     ''' 
-    def AddMonths(self, months):
+    def addMonths(self, months):
         '''
          اضافه کردن به برج
         "months"=>تعداد برج
@@ -186,47 +186,47 @@ class DaParsiDateTime(object):
                     tempYear += 1#در زیر .سال با تابع مربوط به خود کم یا زیاد می شود و جمع با ۱ یعنی یکسال دیگر برای کم شدن اضافه می شود                    
                 tempYear = -tempYear#در اینجا منفی می شود زیرا می خواهیم اگر با تابع حساب شد کم کند 
             
-            return DaParsiDateTime(self.AddYears(tempYear).Year, tempMonth, self.Day, self.Hour, self.Minute, self.Second, self.Microsecond)
+            return DaParsiDateTime(self.addYears(tempYear).Year, tempMonth, self.Day, self.Hour, self.Minute, self.Second, self.Microsecond)
         
         return self
     
     
-    def AddDays(self, days):
+    def addDays(self, days):
         '''
          اضافه کردن به روز
         "days"=>تعداد روز
         '''
-        return DAConvertDate.ConvertToParsiDate(DAConvertDate.ConvertToGregorian(self) + timedelta(days = days))
+        return DAConvertDate.convertToParsiDate(DAConvertDate.convertToGregorian(self) + timedelta(days = days))
            
     
-    def AddHours(self, hours):
+    def addHours(self, hours):
         '''
          اضافه کردن به ساعت
         "hours"=>تعداد ساعت
         '''
-        return DAConvertDate.ConvertToParsiDate(DAConvertDate.ConvertToGregorian(self) + timedelta(hours = hours))
+        return DAConvertDate.convertToParsiDate(DAConvertDate.convertToGregorian(self) + timedelta(hours = hours))
     
     
-    def AddMinutes(self, minutes):
+    def addMinutes(self, minutes):
         '''
          اضافه کردن به دقیقه
         "minutes"=>تعداد دقیقه
         '''
-        return DAConvertDate.ConvertToParsiDate(DAConvertDate.ConvertToGregorian(self) + timedelta(minutes = minutes))
+        return DAConvertDate.convertToParsiDate(DAConvertDate.convertToGregorian(self) + timedelta(minutes = minutes))
     
     
-    def AddSeconds(self, seconds):
+    def addSeconds(self, seconds):
         '''
          اضافه کردن به ثانیه
         "seconds"=>تعداد ثانیه
         '''
-        return DAConvertDate.ConvertToParsiDate(DAConvertDate.ConvertToGregorian(self) + timedelta(seconds = seconds))
+        return DAConvertDate.convertToParsiDate(DAConvertDate.convertToGregorian(self) + timedelta(seconds = seconds))
     
     
-    def AddMicroseconds(self, microseconds):
+    def addMicroseconds(self, microseconds):
         '''
          اضافه کردن به میکرو ثانیه
         "microseconds"=>تعداد میکرو ثانیه
         '''
-        return DAConvertDate.ConvertToParsiDate(DAConvertDate.ConvertToGregorian(self) + timedelta(microseconds = microseconds))
+        return DAConvertDate.convertToParsiDate(DAConvertDate.convertToGregorian(self) + timedelta(microseconds = microseconds))
 

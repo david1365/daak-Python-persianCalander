@@ -13,13 +13,19 @@ from DAClassLibrary import *
 import sys
 
 
-#print ConvertToGregorian(parsiDate()) == ConvertToGregorian(parsiDate())
+print  parsiDate()
+print convertToGregorian(parsiDate())
+print convertToGregorian(parsiDate())
 
-#pdate = ConvertToParsiDate(datetime.now() + timedelta(hours=-1))
+print convertToGregorian(parsiDate()) == convertToGregorian(parsiDate())
 
-#print parsiDate().DayOfWeekNumber
+pdate = convertToParsiDate(datetime.now() + timedelta(hours=-1))
 
-#print DAstrToParsiDate('1394/01/01 20:30');
+print pdate
+
+print parsiDate().DayOfWeekNumber
+
+print convertToGregorian(strToParsiDate('1396/07/12 12:51'));
 
 out = 'no'
 good = 'yes'
@@ -40,10 +46,10 @@ try :
         bt = rule.split('-')
         
         if (len(bt) > 1):
-            if ((datetime.now() >= ConvertToGregorian(DAstrToParsiDate(bt[0]))) and ((datetime.now() <= ConvertToGregorian(DAstrToParsiDate(bt[1]))))):
+            if ((datetime.now() >= convertToGregorian(strToParsiDate(bt[0]))) and ((datetime.now() <= convertToGregorian(strToParsiDate(bt[1]))))):
                 out = good
         else:
-            if datetime.now() >= ConvertToGregorian(DAstrToParsiDate(bt[0])):
+            if datetime.now() >= convertToGregorian(strToParsiDate(bt[0])):
                 out = good
                 
     if title == 'week'.upper():
