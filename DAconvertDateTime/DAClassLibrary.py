@@ -1,7 +1,6 @@
 #coding: utf-8
 
 import DAConvertDate
-from math import *
 from datetime import *
 
 
