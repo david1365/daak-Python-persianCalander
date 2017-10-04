@@ -93,13 +93,13 @@ class DaParsiDateTime(object):
 
     #شماره روز هفته تاریخ مورد نظر
     def __getDayOfWeekNumber(self):
-        return DAConvertDate.DayOfWeekNumber(self) 
+        return DAConvertDate.dayOfWeekNumber(self)
     DayOfWeekNumber = property(__getDayOfWeekNumber, None, None, 'شماره روز هفته تاریخ مورد نظر')
     
 
     #نام روز هفته تاریخ مورد نظر
     def __getDayOfWeekName(self):
-        return DAConvertDate.DayOfWeekName(self) 
+        return DAConvertDate.dayOfWeekName(self)
     DayOfWeekName = property(__getDayOfWeekName, None, None, 'نام روز هفته تاریخ مورد نظر')
 
 
